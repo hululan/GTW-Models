@@ -26,10 +26,32 @@ Initialize model:
 
 Training model:
 ```bash
-            y_pred = model.fit(
+            model.fit(
                 X_train=X_train,
                 y_train=y_train,
                 site_ids=site_train,
                 coords=coords_train,
-                times=time_train)
+                times=time_train
+            )
+```
+
+Predicting with model 
+
+```bash
+        y_pred = model.predict(
+                X_test,
+                coords,
+                times)
+```
+or fitting and then predicting 
+```bash
+            y_pred = model.fit_predict(X_train=X_train,
+                    y_train=y_train,
+                    site_ids_train=site_train,
+                    coords_train=coords_train,
+                    times_train=time_train,
+                    X_test=X_test,
+                    coords_test=coords_test,
+                    times_test=time_test,
+                                  )
 ```
