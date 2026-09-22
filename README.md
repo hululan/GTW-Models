@@ -19,20 +19,17 @@ Initialize parameters for model training
 
 Initialize model:
 ```bash
-            model = GTWRF(
+            model = GTWModel(
                 **params
             )
 ```
 
 Training model:
 ```bash
-            y_pred = model.fit_predict(
+            y_pred = model.fit(
                 X_train=X_train,
                 y_train=y_train,
-                site_ids_train=site_train,
-                coords_train=coords_train,
-                times_train=time_train,
-                X_test=X_test,
-                coords_test=coords_test,
-                times_test=time_test)
+                site_ids=site_train,
+                coords=coords_train,
+                times=time_train)
 ```
