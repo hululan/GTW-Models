@@ -16,11 +16,15 @@ Here is a framework named Geographically and temporally weighted models, enablin
     }
 ```
 
-Training model:
+Initialize model:
 ```bash
             model = GTWRF(
                 **params
             )
+```
+
+Training model:
+```bash
             y_pred = model.fit_predict(
                 X_train=X_train,
                 y_train=y_train,
