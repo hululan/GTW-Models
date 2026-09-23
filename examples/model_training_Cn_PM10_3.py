@@ -156,12 +156,7 @@ if __name__ == '__main__':
             )
             if os.path.exists(f'{out_folder}/resultFold{i}.csv'):
                 y_pred = pd.read_csv(f'{out_folder}/resultFold{i}.csv')
-                # model = params['global_model']
-                # model.fit(X_train,y_train)
-                # y_pred['global_predictions'] =model.predict(X_test)
-                # local_weight = params['local_weight']
-                # y_pred['combined_predictions'] = y_pred['local_predictions']*local_weight + y_pred['global_predictions']*(1-local_weight)
-                # y_pred.to_csv(f'{out_folder}/resultFold{i}.csv', index=False)
+                
             else:
                 y_pred = model.fit_predict(X_train=X_train,
                                   y_train=y_train,
