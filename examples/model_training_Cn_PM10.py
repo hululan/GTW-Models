@@ -105,20 +105,17 @@ if __name__ == '__main__':
 
     kf = KFold(n_splits=10,random_state=42,shuffle=True)
     
-
-    spatial_bandwidths =np.sort(np.unique( np.arange(34,35,5)))
-    temporal_bandwidths = np.full_like(spatial_bandwidths,3)
     for spatial_bandwidth,temporal_bandwidth in zip(spatial_bandwidths,temporal_bandwidths):
         print(f'spatial {spatial_bandwidth}, temporal {temporal_bandwidth}')
         s = 'etet'
         params = {
             'global_model': ExtraTreesRegressor(n_estimators=30, max_depth=30, random_state=42),
             'local_model': ExtraTreesRegressor(n_estimators=30, max_depth=30, random_state=42),
-            'spatial_bandwidth': spatial_bandwidth,
+            'spatial_bandwidth':31,
             'kernel_': 'NN',
             'train_weighted': True,
             'test_weighted': False,
-            'temporal_bandwidth': temporal_bandwidth,
+            'temporal_bandwidth': 3,
             'local_weight': 0.5,
             'nworkers': -1
         }
