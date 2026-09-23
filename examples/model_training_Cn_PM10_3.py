@@ -113,11 +113,11 @@ if __name__ == '__main__':
     temporal_bandwidths = np.full_like(spatial_bandwidths,3)
     for spatial_bandwidth,temporal_bandwidth in zip(spatial_bandwidths,temporal_bandwidths):
         print(f'spatial {spatial_bandwidth}, temporal {temporal_bandwidth}')
-        s = 'xgxg'
+        s = 'etet'
         params = {
-            'global_model': XGBRegressor(enable_categorical=True, n_estimators=100),
-            'local_model': XGBRegressor(enable_categorical=True, n_estimators=100),
-            'spatial_bandwidth':spatial_bandwidth,
+            'global_model': ExtraTreesRegressor(n_estimators=30, max_depth=30, random_state=42),
+            'local_model': ExtraTreesRegressor(n_estimators=30, max_depth=30, random_state=42),
+            'spatial_bandwidth': spatial_bandwidth,
             'kernel_': 'NN',
             'train_weighted': True,
             'test_weighted': False,
@@ -125,18 +125,6 @@ if __name__ == '__main__':
             'local_weight': 0.5,
             'nworkers': -1
         }
-        # s = 'etet'
-        # params = {
-        #     'global_model': ExtraTreesRegressor(n_estimators=30, max_depth=30, random_state=42),
-        #     'local_model': ExtraTreesRegressor(n_estimators=30, max_depth=30, random_state=42),
-        #     'spatial_bandwidth': spatial_bandwidth,
-        #     'kernel_': 'NN',
-        #     'train_weighted': True,
-        #     'test_weighted': False,
-        #     'temporal_bandwidth': temporal_bandwidth,
-        #     'local_weight': 0.5,
-        #     'nworkers': -1
-        # }
 
 
         a = str(params)
@@ -184,51 +172,7 @@ if __name__ == '__main__':
                                   coords_test=coords_test,
                                   times_test=time_test,
                                   )
-                model.fit()
-                y_pred['y_true'] = y_test.values
-                y_pred.to_csv(f'{out_folder}/resultFold{i}.csv',index=False)
-            r2_local = r2_score(y_pred['y_true'],y_pred['local_predictions'])
-            r2_global =  r2_score(y_pred['y_true'],y_pred['global_predictions'])
-            r2_combined = r2_score(y_pred['y_true'],y_pred['combined_predictions'])
-            MAE_local = mean_absolute_error(y_pred['y_true'],y_pred['local_predictions'])
-            MAE_global = mean_absolute_error(y_pred['y_true'],y_pred['global_predictions'])
-            MAE_combined = mean_absolute_error(y_pred['y_true'],y_pred['combined_predictions'])
-            MSE_local = mean_squared_error(y_pred['y_true'],y_pred['local_predictions'])
-            MSE_global = mean_squared_error(y_pred['y_true'],y_pred['global_predictions'])
-            MSE_combined = mean_squared_error(y_pred['y_true'],y_pred['combined_predictions'])
-            MAPE_local = mean_absolute_percentage_error(y_pred['y_true'], y_pred['local_predictions']) * 100
-            MAPE_global = mean_absolute_percentage_error(y_pred['y_true'], y_pred['global_predictions']) * 100
-            MAPE_combined = mean_absolute_percentage_error(y_pred['y_true'], y_pred['combined_predictions']) * 100
-            # 直接调用 root_mean_squared_error
-            RMSE_local = root_mean_squared_error(y_pred['y_true'], y_pred['local_predictions'])
-            RMSE_global = root_mean_squared_error(y_pred['y_true'], y_pred['global_predictions'])
-            RMSE_combined = root_mean_squared_error(y_pred['y_true'], y_pred['combined_predictions'])
 
-            # 3. 将新指标加入到列表中
-            metrics_list.append({
-                'Fold': f'Fold_{i}',
-                'R2_Local': r2_local, 'R2_Global': r2_global, 'R2_Combined': r2_combined,
-                'MAE_Local': MAE_local, 'MAE_Global': MAE_global, 'MAE_Combined': MAE_combined,
-                'MSE_Local': MSE_local, 'MSE_Global': MSE_global, 'MSE_Combined': MSE_combined,
-                'RMSE_Local': RMSE_local, 'RMSE_Global': RMSE_global, 'RMSE_Combined': RMSE_combined,
-                'MAPE_Local': MAPE_local, 'MAPE_Global': MAPE_global, 'MAPE_Combined': MAPE_combined  # 新增
-            })
-
-            # 4. 打印输出
-            print({
-                'Fold': f'Fold_{i}',
-                'R2_Local': r2_local, 'R2_Global': r2_global, 'R2_Combined': r2_combined,
-                'MAE_Local': MAE_local, 'MAE_Global': MAE_global, 'MAE_Combined': MAE_combined,
-                'MSE_Local': MSE_local, 'MSE_Global': MSE_global, 'MSE_Combined': MSE_combined,
-                'RMSE_Local': RMSE_local, 'RMSE_Global': RMSE_global, 'RMSE_Combined': RMSE_combined,
-                'MAPE_Local': MAPE_local, 'MAPE_Global': MAPE_global, 'MAPE_Combined': MAPE_combined  # 新增
-            })
-        metrics_df = pd.DataFrame(metrics_list)
-
-        # 4. (可选) 计算所有 Fold 的平均值并追加到最后一行，方便查看整体表现
-        mean_row = metrics_df.mean(numeric_only=True)
-        mean_row['Fold'] = 'Mean'
-        metrics_df = pd.concat([metrics_df, pd.DataFrame([mean_row])], ignore_index=True)
 
         # 5. 保存为 CSV 文件
         metrics_df.to_csv(f'{out_folder}/metrics_result.csv', index=False)
