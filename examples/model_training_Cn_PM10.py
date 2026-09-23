@@ -73,8 +73,7 @@ if __name__ == '__main__':
         data[f'd{i}'] = dist
 
     selected_cols =['POP','DEM','NDVI','LUC','UW', 'VW', 'DT', 'TEMP', 'BLH', 'SP', 'EVAP', 'PREP','AOD','DOY','RH','WD','WS','Longitude', 'Latitude','d1','d2','d3','d4','d5']
-    # selected_cols = ['POP', 'DEM', 'NDVI', 'LUC', 'UW', 'VW', 'DT', 'TEMP', 'BLH', 'SP', 'EVAP', 'PREP', 'AOD',
-    #                  'RH', 'WD', 'WS',]
+    
     data['LUC'] = data['LUC'].astype(int).astype('category')
     data['site'] = data['site'].astype('category').cat.codes
     data = data.dropna().copy()
@@ -106,8 +105,6 @@ if __name__ == '__main__':
 
     kf = KFold(n_splits=10,random_state=42,shuffle=True)
     
-    # global_model = ExtraTreesRegressor(n_estimators=50)
-    # local_model = ExtraTreesRegressor(n_estimators=50)
 
     spatial_bandwidths =np.sort(np.unique( np.arange(34,35,5)))
     temporal_bandwidths = np.full_like(spatial_bandwidths,3)
