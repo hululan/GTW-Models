@@ -1,5 +1,5 @@
 # GTW-Models
-Here is a framework named Geographically and temporally weighted models, enabling using customized local models such as random forest, extra-trees. This method overcomes spatial non-stationarity and temporal variation, which are common while spatial modeling with aspatial models.
+GTW-Models is a framework named Geographically and temporally weighted models, enabling using customized local models such as random forest, extra-trees. This method overcomes spatial non-stationarity and temporal variation, which are common while spatial modeling with aspatial models.
 
 ## Examples
 Initialize parameters for model training
