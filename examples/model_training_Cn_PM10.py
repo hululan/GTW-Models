@@ -166,5 +166,4 @@ if __name__ == '__main__':
                                   )
 
 
-        # 5. 保存为 CSV 文件
-        metrics_df.to_csv(f'{out_folder}/metrics_result.csv', index=False)
+        y_pred.to_csv(f'{out_folder}/y_pred.csv', index=False)
