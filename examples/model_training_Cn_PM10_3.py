@@ -21,7 +21,7 @@ from scipy import stats
 from xgboost import XGBRegressor
 import pyproj
 import  os
-from GTWModel7 import GTWModel
+from GTWModel import GTWModel
 import warnings
 import gc
 
