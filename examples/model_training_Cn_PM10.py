@@ -138,7 +138,8 @@ if __name__ == '__main__':
                 f.write(
                     str(params)
                 )
-        metrics_list = []
+
+        
         for i, (train_idx,test_idx) in enumerate(kf.split(this_data),start=1):
             train_set, test_set = this_data.iloc[train_idx,:],this_data.iloc[test_idx,:]
             X_train, X_test = train_set[selected_cols], test_set[selected_cols]
