@@ -277,7 +277,7 @@ class GTWModel:
                  test_weighted: bool = False,
                  kernel_: str = 'bisquare',
                  bootstrap: bool = True,
-                 nworkers: int = 1,          # ← 默认改为 4，充分利用 CPU
+                 nworkers: int = 1,          
                  resampled: bool = False,
                  local_weight = .5,
                  rf_add_params: dict = None):
@@ -535,7 +535,7 @@ class GTWModel:
         predictions['combined_predictions'] = predictions['local_predictions']*local_weight + predictions['global_predictions']*(1-local_weight)
         return predictions
 
-    # ── 辅助信息提取 ────────────────────────────────────────────────────────
+    
     def get_local_feature_importance(self):
         """getting global and local feature importances
             :return: a DataFrame containing global and local feature importances"""
